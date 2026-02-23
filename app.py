@@ -12,12 +12,12 @@ app = Flask(__name__)
 CORS(app)
 
 # Configurar Gemini API
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AIzaSyAquiVaTuAPIKey')  # Reemplaza con tu key
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AIzaSyAquiVaTuAPIKey')  # ¡Reemplaza con tu API key real!
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Configurar el modelo educativo
 generation_config = {
-    "temperature": 0.7,  # Creatividad balanceada
+    "temperature": 0.7,
     "top_p": 0.95,
     "top_k": 40,
     "max_output_tokens": 1024,
@@ -30,9 +30,9 @@ safety_settings = [
     {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
 ]
 
-# Inicializar modelo educativo
+# Inicializar modelo educativo (versión 2.5 flash que SÍ existe)
 model = genai.GenerativeModel(
-    model_name="gemini-1.5-flash",  # Modelo rápido y gratuito
+    model_name="models/gemini-2.5-flash",
     generation_config=generation_config,
     safety_settings=safety_settings
 )
@@ -63,6 +63,7 @@ INSTRUCCIONES IMPORTANTES:
 4. Sé alentador, positivo y paciente.
 5. Explica conceptos de manera clara pero sin resolver tareas completas.
 6. Si el estudiante pregunta algo inapropiado, redirige amablemente al tema educativo.
+7. Tus respuestas deben ser en español, claras y apropiadas para estudiantes.
 
 PREGUNTA DEL ESTUDIANTE: "{question}"
 
