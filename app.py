@@ -420,10 +420,17 @@ def download_chat(chat_id):
     )
 
 # ============================================
-# INICIALIZACIÓN
+# INICIALIZACIÓN (CON CREACIÓN DE BASE DE DATOS)
 # ============================================
+# Esta parte se ejecuta siempre, tanto en desarrollo como en producción
+with app.app_context():
+    try:
+        # Crear todas las tablas si no existen
+        db.create_all()
+        print("✅ Base de datos verificada/creada correctamente.")
+    except Exception as e:
+        print(f"❌ Error al crear/verificar la base de datos: {e}")
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
